@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C13B8E37217F5F5100B56BB0 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C13B8E36217F5F5100B56BB0 /* art.scnassets */; };
+		C13B8E3A217F5FD200B56BB0 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B8E39217F5FD200B56BB0 /* ARViewController.swift */; };
 		C1562CFE1EF3F2360069368C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562CFD1EF3F2360069368C /* AppDelegate.swift */; };
-		C1562D001EF3F2360069368C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562CFF1EF3F2360069368C /* ViewController.swift */; };
+		C1562D001EF3F2360069368C /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562CFF1EF3F2360069368C /* CounterViewController.swift */; };
 		C1562D031EF3F2360069368C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1562D011EF3F2360069368C /* Main.storyboard */; };
 		C1562D051EF3F2360069368C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1562D041EF3F2360069368C /* Assets.xcassets */; };
 		C1562D081EF3F2360069368C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1562D061EF3F2360069368C /* LaunchScreen.storyboard */; };
 		C1562D131EF3F2360069368C /* TichuCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D121EF3F2360069368C /* TichuCounterTests.swift */; };
 		C1562D1E1EF3F2360069368C /* TichuCounterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D1D1EF3F2360069368C /* TichuCounterUITests.swift */; };
+		C1562D2C1EF3F8A70069368C /* EditControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D2B1EF3F8A70069368C /* EditControllers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C13B8E36217F5F5100B56BB0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		C13B8E39217F5FD200B56BB0 /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		C1562CFA1EF3F2360069368C /* TichuCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TichuCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1562CFD1EF3F2360069368C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C1562CFF1EF3F2360069368C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C1562CFF1EF3F2360069368C /* CounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
 		C1562D021EF3F2360069368C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C1562D041EF3F2360069368C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1562D071EF3F2360069368C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +52,7 @@
 		C1562D191EF3F2360069368C /* TichuCounterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TichuCounterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1562D1D1EF3F2360069368C /* TichuCounterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TichuCounterUITests.swift; sourceTree = "<group>"; };
 		C1562D1F1EF3F2360069368C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1562D2B1EF3F8A70069368C /* EditControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditControllers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C13B8E38217F5F6D00B56BB0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C1562CFF1EF3F2360069368C /* CounterViewController.swift */,
+				C1562D2B1EF3F8A70069368C /* EditControllers.swift */,
+				C13B8E39217F5FD200B56BB0 /* ARViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		C1562CF11EF3F2360069368C = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +113,9 @@
 		C1562CFC1EF3F2360069368C /* TichuCounter */ = {
 			isa = PBXGroup;
 			children = (
+				C13B8E38217F5F6D00B56BB0 /* Controllers */,
 				C1562CFD1EF3F2360069368C /* AppDelegate.swift */,
-				C1562CFF1EF3F2360069368C /* ViewController.swift */,
+				C13B8E36217F5F5100B56BB0 /* art.scnassets */,
 				C1562D011EF3F2360069368C /* Main.storyboard */,
 				C1562D041EF3F2360069368C /* Assets.xcassets */,
 				C1562D061EF3F2360069368C /* LaunchScreen.storyboard */,
@@ -192,6 +209,7 @@
 				TargetAttributes = {
 					C1562CF91EF3F2360069368C = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 4JD8E762KB;
 						ProvisioningStyle = Automatic;
 					};
 					C1562D0D1EF3F2360069368C = {
@@ -232,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1562D081EF3F2360069368C /* LaunchScreen.storyboard in Resources */,
+				C13B8E37217F5F5100B56BB0 /* art.scnassets in Resources */,
 				C1562D051EF3F2360069368C /* Assets.xcassets in Resources */,
 				C1562D031EF3F2360069368C /* Main.storyboard in Resources */,
 			);
@@ -258,7 +277,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1562D001EF3F2360069368C /* ViewController.swift in Sources */,
+				C1562D001EF3F2360069368C /* CounterViewController.swift in Sources */,
+				C1562D2C1EF3F8A70069368C /* EditControllers.swift in Sources */,
+				C13B8E3A217F5FD200B56BB0 /* ARViewController.swift in Sources */,
 				C1562CFE1EF3F2360069368C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -400,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -413,11 +434,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4JD8E762KB;
 				INFOPLIST_FILE = TichuCounter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teodoro.TichuCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -425,11 +449,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4JD8E762KB;
 				INFOPLIST_FILE = TichuCounter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teodoro.TichuCounter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -506,6 +533,7 @@
 				C1562D241EF3F2360069368C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C1562D251EF3F2360069368C /* Build configuration list for PBXNativeTarget "TichuCounterTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +542,7 @@
 				C1562D271EF3F2360069368C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C1562D281EF3F2360069368C /* Build configuration list for PBXNativeTarget "TichuCounterUITests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +551,7 @@
 				C1562D2A1EF3F2360069368C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
