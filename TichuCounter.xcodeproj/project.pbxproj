@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C13B8E37217F5F5100B56BB0 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C13B8E36217F5F5100B56BB0 /* art.scnassets */; };
 		C13B8E3A217F5FD200B56BB0 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B8E39217F5FD200B56BB0 /* ARViewController.swift */; };
+		C14B3159217FAE4600169459 /* ScoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14B3158217FAE4600169459 /* ScoresTableViewController.swift */; };
 		C1562CFE1EF3F2360069368C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562CFD1EF3F2360069368C /* AppDelegate.swift */; };
 		C1562D001EF3F2360069368C /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562CFF1EF3F2360069368C /* CounterViewController.swift */; };
 		C1562D031EF3F2360069368C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1562D011EF3F2360069368C /* Main.storyboard */; };
@@ -16,7 +17,7 @@
 		C1562D081EF3F2360069368C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1562D061EF3F2360069368C /* LaunchScreen.storyboard */; };
 		C1562D131EF3F2360069368C /* TichuCounterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D121EF3F2360069368C /* TichuCounterTests.swift */; };
 		C1562D1E1EF3F2360069368C /* TichuCounterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D1D1EF3F2360069368C /* TichuCounterUITests.swift */; };
-		C1562D2C1EF3F8A70069368C /* EditControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D2B1EF3F8A70069368C /* EditControllers.swift */; };
+		C1562D2C1EF3F8A70069368C /* EditTeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D2B1EF3F8A70069368C /* EditTeamController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		C13B8E36217F5F5100B56BB0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		C13B8E39217F5FD200B56BB0 /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		C14B3158217FAE4600169459 /* ScoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresTableViewController.swift; sourceTree = "<group>"; };
 		C1562CFA1EF3F2360069368C /* TichuCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TichuCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1562CFD1EF3F2360069368C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1562CFF1EF3F2360069368C /* CounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 		C1562D191EF3F2360069368C /* TichuCounterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TichuCounterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1562D1D1EF3F2360069368C /* TichuCounterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TichuCounterUITests.swift; sourceTree = "<group>"; };
 		C1562D1F1EF3F2360069368C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C1562D2B1EF3F8A70069368C /* EditControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditControllers.swift; sourceTree = "<group>"; };
+		C1562D2B1EF3F8A70069368C /* EditTeamController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTeamController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				C1562CFF1EF3F2360069368C /* CounterViewController.swift */,
-				C1562D2B1EF3F8A70069368C /* EditControllers.swift */,
 				C13B8E39217F5FD200B56BB0 /* ARViewController.swift */,
+				C14B3158217FAE4600169459 /* ScoresTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -120,6 +122,7 @@
 				C1562D041EF3F2360069368C /* Assets.xcassets */,
 				C1562D061EF3F2360069368C /* LaunchScreen.storyboard */,
 				C1562D091EF3F2360069368C /* Info.plist */,
+				C1562D2B1EF3F8A70069368C /* EditTeamController.swift */,
 			);
 			path = TichuCounter;
 			sourceTree = "<group>";
@@ -277,8 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C14B3159217FAE4600169459 /* ScoresTableViewController.swift in Sources */,
 				C1562D001EF3F2360069368C /* CounterViewController.swift in Sources */,
-				C1562D2C1EF3F8A70069368C /* EditControllers.swift in Sources */,
+				C1562D2C1EF3F8A70069368C /* EditTeamController.swift in Sources */,
 				C13B8E3A217F5FD200B56BB0 /* ARViewController.swift in Sources */,
 				C1562CFE1EF3F2360069368C /* AppDelegate.swift in Sources */,
 			);

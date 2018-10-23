@@ -24,7 +24,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+//        sceneView.showsStatistics = true
         
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/GameScene.scn")!
@@ -69,29 +69,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         let node = SCNNode()
         
-        
-       /* if let objectAnchor = anchor as? ARObjectAnchor{
-            let plane = SCNPlane(width:CGFloat(objectAnchor.referenceObject.extent.x * 0.8), height: CGFloat(objectAnchor.referenceObject.extent.y * 0.5))
-            plane.cornerRadius  = plane.width / 8
-            
-        
-            let spriteKitScene = SKScene(fileNamed: "ProductInfo")
-            plane.firstMaterial?.diffuse.contents = spriteKitScene
-            plane.firstMaterial?.isDoubleSided = true
-            plane.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1),0,1,0)
-            
-            let planeNode = SCNNode(geometry: plane)
-            planeNode.position = SCNVector3Make(objectAnchor.referenceObject.center.x, objectAnchor.referenceObject.center.y + 0.20, objectAnchor.referenceObject.center.z)
-            
-            node.addChildNode(planeNode)
-            
-        } */
-        
-//        let spotLight = SCNLight()
-//        spotLight.type = SCNLight.LightType.spot;
-//        spotLight.spotInnerAngle = 45;
-//        spotLight.spotOuterAngle = 45;
-//        spotLight.color = UIColor(white: 1, alpha: 1)
+
         
         if let imageAnchor = anchor as? ARImageAnchor{
             
@@ -102,14 +80,12 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             let planeNode = SCNNode(geometry: plane)
             planeNode.eulerAngles.x = -.pi / 2
             
-            var shipScene = SCNScene()
             
             if(imageAnchor.name! == "KB" || imageAnchor.name! == "KM" || imageAnchor.name! == "KP"){
                 score += 10
                 DispatchQueue.global(qos: .utility).async {
                     self.updateScoreLabel()
                 }
-                 shipScene = SCNScene(named: "art.scnassets/A.scn")!
                 count += 1
             }
             if imageAnchor.name! == "dragon" {
@@ -117,7 +93,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
                 DispatchQueue.global(qos: .utility).async {
                     self.updateScoreLabel()
                 }
-                shipScene = SCNScene(named: "art.scnassets/dragon.scn")!
                 count += 1
             }
            
@@ -127,7 +102,6 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
                     self.updateScoreLabel()
                 }
                 count += 1
-                
             }
             
             if imageAnchor.name! == "5M" {
@@ -143,36 +117,11 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
                 print("calced")
             }
             print(count)
-      
-//            let shipNode = shipScene.rootNode.childNodes.first!
-//            shipNode.position = SCNVector3Zero
-//            shipNode.position.z = 0.02
-//
-//            if(imageAnchor.name! == "K"){
-//                shipNode.position.x = -0.08
-//                shipNode.position.y = -0.08
-//            }
-//
-//            shipNode.light = spotLight
-        
-//            planeNode.addChildNode(shipNode)
-            
-//            node.addChildNode(planeNode)
-            
-            
         }
         
         return node
     }
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -220,6 +169,24 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
             self.scoreLabel.text = "Score: \(self.score)"
         }
        
+    }
+    
+  
+    @IBAction func returnView(_ sender: UIButton) {
+        let i = navigationController?.viewControllers.index(of: self)
+        let previousViewController = navigationController?.viewControllers[i!-1] as! CounterViewController
+        
+        if previousViewController.buttonTag == 1 {
+            previousViewController.team1Score.text = String(score)
+            previousViewController.Score1Changed(self)
+            
+        }else if previousViewController.buttonTag == 2{
+            previousViewController.team2Score.text = String(score)
+            previousViewController.Score2Changed(self)
+        }
+       
+        
+        navigationController?.popViewController(animated: true)
     }
     
 }

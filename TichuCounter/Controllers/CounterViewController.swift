@@ -16,6 +16,11 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     
     
     
+    @IBOutlet weak var blueProgress: UIProgressView!
+    @IBOutlet weak var redProgress: UIProgressView!
+    @IBOutlet weak var gapLabel: UILabel!
+    @IBOutlet weak var round: UILabel!
+    @IBOutlet weak var targetText: UITextField!
     @IBOutlet weak var test: UILabel!
     var effect:UIVisualEffect!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
@@ -30,10 +35,13 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     @IBOutlet weak var team1Label: UILabel!
     @IBOutlet weak var team2Label: UILabel!
     var timer = Timer()
-
+    var buttonTag = 0
+    var target = 1000
     var tichu = Int()
     var tichu2 = Int()
     var threedtouch = String()
+    var prev1 = 0
+    var prev2 = 0
     
     //MARK: Switches
     @IBAction func value_changed(_ sender: UISwitch) {
@@ -57,11 +65,51 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
             if switches[1].isOn{switches[5].isEnabled = false }
             else if switches[5].isOn {switches[1].isEnabled = false}
         }
-      
+        
+        //Team1 1:tichu 2:failedTichu
+        if switches[0].isOn && switches[2].isOn {
+            switches[6].isEnabled = false
+        }
+        //Team2 1:tichu 2:failedTichu
+        if switches[1].isOn && switches[3].isOn {
+            switches[7].isEnabled = false
+        }
+        
+        //Team1 grandtichu winned and failed
+        if switches[4].isOn && switches[6].isOn {
+            switches[2].isEnabled = false
+        }
+        //Team2 grandtichu winned and failed
+        if switches[5].isOn && switches[7].isOn {
+            switches[3].isEnabled = false
+        }
+        
+        //Team1 failed tichu and grand tichu
+        if switches[2].isOn && switches[4].isOn {
+            switches[6].isEnabled = false
+        }
+        //Team2 failed tichu and grand tichu
+        if switches[3].isOn && switches[5].isOn {
+            switches[7].isEnabled = false
+        }
+        
+        //Team1 failed tichu failed grand tichu
+        if switches[2].isOn && switches[6].isOn {
+            switches[0].isEnabled = false
+            switches[4].isEnabled = false
+            switches[8].isEnabled = false
+        }
+        //Team2 failed tichu failed grand tichu
+        if switches[3].isOn && switches[7].isOn {
+            switches[1].isEnabled = false
+            switches[5].isEnabled = false
+            switches[9].isEnabled = false
+        }
+   
     }
   
     //MARK : Score
-    
+
     
     
     @IBAction func Score1Changed(_ sender: Any) {
@@ -87,8 +135,42 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         else { temp2 = "" }
         
         team2Score.text = temp2
+        
 
     }
+    func incrementLabel(startValue:Int , endValue: Int , textbox:UILabel,which:Int) {
+        let duration: Double = 0.3 //seconds
+        
+        if startValue < endValue {
+            DispatchQueue.global().async {
+                for i in startValue ..< (endValue + 1) {
+                    let sleepTime = UInt32(duration * 10000.0)
+                    usleep(sleepTime)
+                    DispatchQueue.main.async {
+                        textbox.text = "\(i)"
+                    }
+                }
+            }
+        }else if endValue < startValue{
+            DispatchQueue.global().async {
+                for i in stride(from: startValue, through: endValue, by: -1) {
+                    let sleepTime = UInt32(duration * 10000.0)
+                    usleep(sleepTime)
+                    DispatchQueue.main.async {
+                        textbox.text = "\(i)"
+                    }
+                }
+            }
+        }
+        
+        if which == 1 {
+            redProgress.setProgress(Float(endValue) / Float(target), animated: true)
+        }else{
+             blueProgress.setProgress(Float(endValue) / Float(target), animated: true)
+        }
+        
+    }
+
     @IBAction func Score2Changed(_ sender: Any) {
         var temp = Int()
         var temp2 = String()
@@ -121,6 +203,7 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
 
     @IBAction func countButton(_ sender: Any) {
         
+        
         //TICHU
         tichu = 0
         tichu2 = 0
@@ -139,16 +222,23 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         if switches[6].isOn {tichu += -200 }
         if switches[7].isOn {tichu2 += -200 }
        
+        //LETS OPTIMIZE
+        
+        let strValue1 = Int(team1SLabel.text!)!
+        var endValue1 = 0
+        let strValue2 =  Int(team2SLabel.text!)!
+        var endValue2 = 0
+        var write = false
         
         if (switches[8].isOn || switches[9].isOn) {     // IN CASE OF DOUBLE WIN
-            team1SLabel.text = String(Int(team1SLabel.text!)! + tichu)
-            team2SLabel.text = String(Int(team2SLabel.text!)! + tichu2)
+            endValue1 = Int(team1SLabel.text!)! + tichu
+            endValue2 = Int(team2SLabel.text!)! + tichu2
+            write = true
         }
         else if (team1Score.text != "" && team2Score.text != "" && Int(team1Score.text!)! % 5 == 0 && Int(team2Score.text!)! % 5 == 0 ){
-          team1SLabel.text = String(Int(team1SLabel.text!)! + Int(team1Score.text!)! + tichu)
-        
-          team2SLabel.text = String(Int(team2SLabel.text!)! + Int(team2Score.text!)! + tichu2)
-            
+            endValue1 = Int(team1SLabel.text!)! + Int(team1Score.text!)! + tichu
+            endValue2 = Int(team2SLabel.text!)! + Int(team2Score.text!)! + tichu2
+            write = true
             
         }
         else {
@@ -158,6 +248,32 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
             dialog.addAction(defaultAction)
             present(dialog,animated: true,completion: nil)
         }
+        
+        if write {
+            prev1 = strValue1
+            prev2 = strValue2
+            
+            incrementLabel(startValue: strValue1, endValue: endValue1, textbox: team1SLabel,which: 1)
+            incrementLabel(startValue: strValue2, endValue: endValue2, textbox: team2SLabel,which: 2)
+            //Round
+            round.text = String(Int(round.text!)! + 1)
+            if endValue1 > endValue2 {
+                gapLabel.text = String(endValue1 - endValue2)
+                gapLabel.textColor = UIColor.red
+            }else if endValue1 < endValue2 {
+                gapLabel.text = String(endValue2 - endValue1)
+                gapLabel.textColor = UIColor.blue
+            }else{
+                gapLabel.text = "0"
+                gapLabel.textColor = UIColor.black
+            }
+            
+            
+            
+        }
+       
+        
+        write = false
         team1Score.text = ""
         team2Score.text = ""
         //INIT SWITCHES
@@ -166,12 +282,13 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
             switches[i].isEnabled=true
         }
         
+        
         //ALERT WINNER
         var winner = ""
-        if Int(team1SLabel.text!)! >= 1000 {
+        if endValue1 >= target {
             winner = team1Label.text!
         }
-        if Int(team2SLabel.text!)! >= 1000 {
+        if endValue2 >= target {
             winner = team2Label.text!
         }
         if winner != "" {
@@ -194,6 +311,9 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         tichu = 0
         tichu2 = 0
         
+        //ProgressBars
+        redProgress.transform = redProgress.transform.scaledBy(x: 1, y: 3)
+        blueProgress.transform = blueProgress.transform.scaledBy(x: 1, y: 3)
         
         // Do any additional setup after loading the view, typically from a nib.
         team1Score.keyboardType = UIKeyboardType.numberPad
@@ -218,14 +338,16 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         button2.addTarget(self, action: #selector(counterAR), for: .touchUpInside)
         team2Score.rightView = button2
         team2Score.rightViewMode = .unlessEditing
-//
+
+        targetText.text = String(target)
         
     }
     
     
     @objc
     func counterAR(sender:UIButton){
-        print(sender.tag)
+        performSegue(withIdentifier: "arSegue", sender: self)
+        buttonTag = sender.tag
     }
     //Methods For blur and displaying second view for changing team
     func animateIn() {
@@ -262,6 +384,13 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         if chtext2.text != "" { team2Label.text = chtext2.text}
         else{
             team2Label.text = "Ομάδα 2"}
+        if(Int(targetText.text!) ?? 0 > 100) {
+            target = Int(targetText.text!) ?? 1000
+        }
+        
+        redProgress.progress = Float(team1SLabel.text!)! / Float(target)
+        blueProgress.progress = Float(team2SLabel.text!)! / Float(target)
+        
         animateOut()
     }
     
@@ -270,14 +399,18 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     
     @IBAction func reset(_ sender: Any) {
         
-        team1Score.text = ""
-        team2Score.text = ""
-        team1SLabel.text="0"
-        team2SLabel.text="0"
-        for i in 0...9 {
-            switches[i].isEnabled = true
-            switches[i].isOn = false
-        }
+//        redProgress.progress = 0.0
+//        blueProgress.progress = 0.0
+//        team1Score.text = ""
+//        team2Score.text = ""
+//        team1SLabel.text="0"
+//        team2SLabel.text="0"
+//        for i in 0...9 {
+//            switches[i].isEnabled = true
+//            switches[i].isOn = false
+//        }
+        incrementLabel(startValue: Int(team1SLabel.text!)!, endValue: prev1, textbox: team1SLabel,which: 1)
+        incrementLabel(startValue: Int(team2SLabel.text!)!, endValue: prev2, textbox: team2SLabel,which: 2)
         
     }
     
@@ -299,7 +432,17 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
-
+    @IBAction func changeViewController(_ sender: UIScreenEdgePanGestureRecognizer) {
+        if sender.edges == UIRectEdge.left {
+            let vc = ScoresTableViewController() //change this to your class name
+           
+            self.navigationController?.present(vc, animated: true, completion: nil)
+            
+        }
+    }
+    
 }
 

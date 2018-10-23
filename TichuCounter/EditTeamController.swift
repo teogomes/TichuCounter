@@ -9,7 +9,7 @@
 
 import UIKit
 
-class secondViewController: UIViewController , UITextFieldDelegate , UINavigationControllerDelegate{
+class EditTeamController: UIViewController , UITextFieldDelegate , UINavigationControllerDelegate{
 
     
     @IBOutlet weak var textbox1: UITextField!
