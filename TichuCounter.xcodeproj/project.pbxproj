@@ -19,7 +19,6 @@
 		C1562D2C1EF3F8A70069368C /* EditTeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1562D2B1EF3F8A70069368C /* EditTeamController.swift */; };
 		C17837A72180C7A800DA0917 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C17837A62180C7A800DA0917 /* Main.storyboard */; };
 		C17837A92180D8BE00DA0917 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17837A82180D8BE00DA0917 /* CustomTableViewCell.swift */; };
-		C1F90FC52182368900BCD22A /* saveHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F90FC42182368900BCD22A /* saveHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +57,6 @@
 		C1562D2B1EF3F8A70069368C /* EditTeamController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTeamController.swift; sourceTree = "<group>"; };
 		C17837A62180C7A800DA0917 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 		C17837A82180D8BE00DA0917 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		C1F90FC42182368900BCD22A /* saveHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +97,6 @@
 		C1562CF11EF3F2360069368C = {
 			isa = PBXGroup;
 			children = (
-				C1F90FC42182368900BCD22A /* saveHelper.swift */,
 				C1562CFC1EF3F2360069368C /* TichuCounter */,
 				C1562D111EF3F2360069368C /* TichuCounterTests */,
 				C1562D1C1EF3F2360069368C /* TichuCounterUITests */,
@@ -288,7 +285,6 @@
 			files = (
 				C17837A92180D8BE00DA0917 /* CustomTableViewCell.swift in Sources */,
 				C14B3159217FAE4600169459 /* ScoresTableViewController.swift in Sources */,
-				C1F90FC52182368900BCD22A /* saveHelper.swift in Sources */,
 				C1562D001EF3F2360069368C /* CounterViewController.swift in Sources */,
 				C1562D2C1EF3F8A70069368C /* EditTeamController.swift in Sources */,
 				C13B8E3A217F5FD200B56BB0 /* ARViewController.swift in Sources */,
