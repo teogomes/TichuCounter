@@ -167,6 +167,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     func updateScoreLabel(){
         DispatchQueue.main.async {
             self.scoreLabel.text = "Score: \(self.score)"
+            let selection = UIImpactFeedbackGenerator()
+            selection.impactOccurred()
         }
        
     }

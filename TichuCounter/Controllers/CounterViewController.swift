@@ -8,6 +8,16 @@
 
 import UIKit
 
+struct points {
+    var currentPoints1: Int
+    var currentPoints2: Int
+    var previousPoints1: Int
+    var previousPoints2: Int
+    var tichu1:[String] = []
+    var tichu2:[String] = []
+    var round :Int
+}
+
 class CounterViewController: UIViewController ,UITextFieldDelegate {
 
     
@@ -15,6 +25,7 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     
     
     
+    @IBOutlet weak var undoButton: UIBarButtonItem!
     
     @IBOutlet weak var blueProgress: UIProgressView!
     @IBOutlet weak var redProgress: UIProgressView!
@@ -42,6 +53,8 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     var threedtouch = String()
     var prev1 = 0
     var prev2 = 0
+    var pointsList: [points] = []
+    
     
     //MARK: Switches
     @IBAction func value_changed(_ sender: UISwitch) {
@@ -105,7 +118,21 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
             switches[5].isEnabled = false
             switches[9].isEnabled = false
         }
-   
+        
+        //Double Win and failed tichu or grand tichu
+        if switches[8].isOn && switches[6].isOn {
+            switches[2].isEnabled = false
+        }
+        if switches[8].isOn && switches[2].isOn {
+            switches[6].isEnabled = false
+        }
+        if switches[9].isOn && switches[7].isOn {
+            switches[3].isEnabled = false
+        }
+        if switches[9].isOn && switches[3].isOn{
+            switches[7].isEnabled = false
+        }
+        
     }
   
     //MARK : Score
@@ -204,23 +231,26 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     @IBAction func countButton(_ sender: Any) {
         
         
-        //TICHU
         tichu = 0
         tichu2 = 0
-        if switches[0].isOn {tichu += 100 }
-        if switches[1].isOn {tichu2 += 100 }
+        var tichu1Label:[String] = []
+        var tichu2Label:[String] = []
+        
+        //TICHU
+        if switches[0].isOn {tichu += 100;tichu1Label.append("Tichu") }
+        if switches[1].isOn {tichu2 += 100;tichu2Label.append("Tichu") }
         //Failed TICHU
-        if switches[2].isOn {tichu += -100 }
-        if switches[3].isOn {tichu2 += -100 }
+        if switches[2].isOn {tichu += -100;tichu1Label.append("Failed Tichu")}
+        if switches[3].isOn {tichu2 += -100;tichu2Label.append("Failed Tichu") }
         //GRAND TICHU
-        if switches[4].isOn {tichu += 200 }
-        if switches[5].isOn {tichu2 += 200 }
+        if switches[4].isOn {tichu += 200;tichu1Label.append("Grand Tichu") }
+        if switches[5].isOn {tichu2 += 200;tichu2Label.append("Grand Tichu") }
         //Double Win
-        if  switches[8].isOn {tichu += 200 }
-        if  switches[9].isOn {tichu2 += 200 }
+        if  switches[8].isOn {tichu += 200;tichu1Label.append("Double Win") }
+        if  switches[9].isOn {tichu2 += 200;tichu2Label.append("Double Win") }
         //Failed GRAND TICHU
-        if switches[6].isOn {tichu += -200 }
-        if switches[7].isOn {tichu2 += -200 }
+        if switches[6].isOn {tichu += -200;tichu1Label.append("Failed Grand Tichu") }
+        if switches[7].isOn {tichu2 += -200;tichu2Label.append("Failed Grand Tichu") }
        
         //LETS OPTIMIZE
         
@@ -252,7 +282,7 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         if write {
             prev1 = strValue1
             prev2 = strValue2
-            
+            undoButton.isEnabled = true
             incrementLabel(startValue: strValue1, endValue: endValue1, textbox: team1SLabel,which: 1)
             incrementLabel(startValue: strValue2, endValue: endValue2, textbox: team2SLabel,which: 2)
             //Round
@@ -268,7 +298,10 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
                 gapLabel.textColor = UIColor.black
             }
             
+            //Write to  "Database"
+            pointsList.append(points(currentPoints1: endValue1, currentPoints2: endValue2, previousPoints1: prev1, previousPoints2: prev2, tichu1: tichu1Label, tichu2: tichu2Label, round: Int(round.text!)!))
             
+          
             
         }
        
@@ -301,15 +334,27 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
         
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+//        if let codedOldList = UserDefaults.standard.object(forKey: "points"){
+//            let oldList = NSKeyedUnarchiver.unarchiveObject(with: codedOldList as! [points])
+//            if (oldList.count) > 0 {
+//                pointsList = oldList as! [points]
+//                team1Score.text = String(pointsList.last!.currentPoints1)
+//                team2Score.text = String(pointsList.last!.currentPoints2)
+//                print("reading from defaults...")
+//            }
+//        }
+    }
     
-    
-    
+   
     @IBOutlet weak var countbutton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tichu = 0
         tichu2 = 0
+        
+        
         
         //ProgressBars
         redProgress.transform = redProgress.transform.scaledBy(x: 1, y: 3)
@@ -396,21 +441,50 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     
     
     //Reset Game
-    
-    @IBAction func reset(_ sender: Any) {
+    @IBAction func newGame(_ sender: UIBarButtonItem) {
         
-//        redProgress.progress = 0.0
-//        blueProgress.progress = 0.0
-//        team1Score.text = ""
-//        team2Score.text = ""
-//        team1SLabel.text="0"
-//        team2SLabel.text="0"
-//        for i in 0...9 {
-//            switches[i].isEnabled = true
-//            switches[i].isOn = false
-//        }
-        incrementLabel(startValue: Int(team1SLabel.text!)!, endValue: prev1, textbox: team1SLabel,which: 1)
-        incrementLabel(startValue: Int(team2SLabel.text!)!, endValue: prev2, textbox: team2SLabel,which: 2)
+
+        let dialog = UIAlertController(title: "New Game?", message: "Do you want to start a new game? " , preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        dialog.addAction(defaultAction)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (UIAlertAction) in
+            
+            self.redProgress.progress = 0.0
+            self.blueProgress.progress = 0.0
+            self.team1Score.text = ""
+            self.team2Score.text = ""
+            self.team1SLabel.text = "0"
+            self.team2SLabel.text = "0"
+            self.round.text = "0"
+            self.gapLabel.text = "0"
+            
+            for i in 0...9 {
+                self.switches[i].isEnabled = true
+                self.switches[i].isOn = false
+            }
+            
+        }
+        dialog.addAction(yesAction)
+        present(dialog, animated: true, completion: nil)
+       
+        
+    }
+    
+    
+    @IBAction func reset(_ sender: UIButton) {
+        
+        let dialog = UIAlertController(title: "Undo Round", message: "Do you want to return to previous round", preferredStyle: .alert)
+        let dialogCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let dialogConfirm = UIAlertAction(title: "Yes", style: .destructive) { (UIAlertAction) in
+            
+            self.incrementLabel(startValue: Int(self.team1SLabel.text!)!, endValue: self.prev1, textbox: self.team1SLabel,which: 1)
+            self.incrementLabel(startValue: Int(self.team2SLabel.text!)!, endValue: self.prev2, textbox: self.team2SLabel,which: 2)
+           sender.isEnabled = false
+        }
+        dialog.addAction(dialogCancel)
+        dialog.addAction(dialogConfirm)
+        present(dialog, animated: true, completion:nil)
+   
         
     }
     
@@ -436,13 +510,21 @@ class CounterViewController: UIViewController ,UITextFieldDelegate {
     
 
     @IBAction func changeViewController(_ sender: UIScreenEdgePanGestureRecognizer) {
-        if sender.edges == UIRectEdge.left {
-            let vc = ScoresTableViewController() //change this to your class name
-           
-            self.navigationController?.present(vc, animated: true, completion: nil)
-            
+        if(sender.state == UIGestureRecognizerState.ended){
+             performSegue(withIdentifier: "tabSegue", sender: self)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        if segue.identifier == "tabSegue" {
+            let vc = segue.destination as! ScoresTableViewController
+            vc.pointsList = pointsList
+        }
+    }
+    
+    
+    
     
 }
 
